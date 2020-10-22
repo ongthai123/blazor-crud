@@ -1,0 +1,46 @@
+﻿@page "/category"
+
+@using CRUD_Blazor.Data
+@inject CategoryService CategoryService
+
+<h3>Category</h3>
+
+<NavLink class="nav-link" href="">
+    <span class="oi oi-plus" aria-hidden="true"></span>Add New
+</NavLink>
+
+@if (categories == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight Range</th>
+                <th>Icon</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in categories)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.WeightMin to @category.WeightMax</td>
+                    <td>Icon</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Category> categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await Task.Run(() => CategoryService.GetCategory());
+    }
+}
