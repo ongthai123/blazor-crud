@@ -184,4 +184,10 @@ C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\Razor\_Imports
 C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\Razor\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Category\Index.razor.g.cs
 C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\Razor\Pages\Category\Index.razor.g.cs
+C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Category\Create.razor.g.cs
+C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\Razor\Pages\Category\Create.razor.g.cs
+C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Category\Delete.razor.g.cs
+C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Category\Edit.razor.g.cs
+C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\Razor\Pages\Category\Delete.razor.g.cs
+C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\Razor\Pages\Category\Edit.razor.g.cs
 C:\Users\irealracing4\Desktop\CRUD_Blazor\obj\Debug\netcoreapp3.1\CRUD_Blazor.csprojAssemblyReference.cache
