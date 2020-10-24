@@ -9,7 +9,7 @@ namespace CRUD_Blazor.Data
 {
     public class Vehicle
     {
-        [Required]
+        [Key]
         public int Id { get; set; }
         [Required]
         public string Owner { get; set; }
