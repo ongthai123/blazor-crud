@@ -1,0 +1,75 @@
+﻿@page "/category/create"
+
+@using CRUD_Blazor.Data
+@inject CategoryService categorySerivce
+@inject NavigationManager navigationManager
+
+<h3>Create Category</h3>
+<hr/>
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="@category.Name" />
+            </div>
+            <div class="form-group">
+                <label for="MinWeight" class="control-label">MinWeight</label>
+                <input form="MinWeight" class="form-control" @bind="@category.MinWeight" />
+            </div>
+            <div class="form-group">
+                <label for="MaxWeight" class="control-label">MaxWeight</label>
+                <input form="MaxWeight" class="form-control" @bind="@category.MaxWeight" />
+            </div>
+            <div class="form-group">
+                <label for="IconURL" class="control-label">IconURL</label>
+                <input form="IconURL" class="form-control" @bind="@category.IconURL" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateCategory" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+
+            </div>
+        </div>
+    </div>
+    @if (result == "")
+    {
+
+    }
+    else if (result == "Successul")
+    {
+        <div class="alert alert-success" role="alert">
+            @result
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="alert alert-danger" role="alert">
+                @result
+            </div>
+        </div>
+    }
+</form>
+
+@code {
+    Category category = new Category();
+
+    public string result { get; set; } = "";
+
+    public void CreateCategory()
+    {
+        result = categorySerivce.Create(category);
+        //navigationManager.NavigateTo("category");
+    }
+
+    void Cancel()
+    {
+        navigationManager.NavigateTo("category");
+    }
+}
