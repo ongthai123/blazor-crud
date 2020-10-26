@@ -18,7 +18,6 @@
   <ItemGroup>
     <Folder Include="Data\Models\" />
     <Folder Include="Data\Services\" />
-    <Folder Include="Pages\Vehicle\" />
   </ItemGroup>
 
 </Project>
