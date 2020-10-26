@@ -1,5 +1,61 @@
-﻿<h3>Delete</h3>
+﻿@page "/category/delete/{Id}"
+
+@using CRUD_Blazor.Data
+@inject CategoryService categorySerivce
+@inject NavigationManager navigationManager
+
+<h3>Delete Category</h3>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <label for="Name" class="control-label">Name</label>
+            <input form="Name" class="form-control" @bind="@category.Name" />
+        </div>
+        <div class="form-group">
+            <label for="MinWeight" class="control-label">MinWeight</label>
+            <input form="MinWeight" class="form-control" @bind="@category.MinWeight" />
+        </div>
+        <div class="form-group">
+            <label for="MaxWeight" class="control-label">MaxWeight</label>
+            <input form="MaxWeight" class="form-control" @bind="@category.MaxWeight" />
+        </div>
+        <div class="form-group">
+            <label for="IconURL" class="control-label">IconURL</label>
+            <input form="IconURL" class="form-control" @bind="@category.IconURL" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" @onclick="@DeleteCategory" value="Delete" />
+            <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+
+        </div>
+    </div>
+</div>
 
 @code {
+    [Parameter]
+    public string Id { get; set; }
 
+    Category category = new Category();
+
+    protected override async Task OnInitializedAsync()
+    {
+        category = await Task.Run(() => categorySerivce.GetCategoryById(Convert.ToInt32(Id)));
+    }
+
+    public void DeleteCategory()
+    {
+        categorySerivce.Delete(category);
+        navigationManager.NavigateTo("category");
+    }
+
+    void Cancel()
+    {
+        navigationManager.NavigateTo("category");
+    }
 }
