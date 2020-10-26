@@ -29,6 +29,11 @@ namespace CRUD_Blazor.Data
 
         public string Create(Category category)
         {
+            if (category.Name == null || category.IconURL == null || category.MinWeight < 0 || category.MaxWeight == 0)
+            {
+                return ("Please fill up all fields carefully.");
+            }
+
             var categories = _dbContext.Categories.ToList();
 
             //Check if new category's weight range is overlap
@@ -50,6 +55,11 @@ namespace CRUD_Blazor.Data
 
         public string Update(Category category)
         {
+            if (category.Name == null || category.IconURL == null || category.MinWeight < 0 || category.MaxWeight == 0)
+            {
+                return ("Please fill up all fields carefully.");
+            }
+
             var categories = _dbContext.Categories.ToList();
 
             //Check if updating category's weight range is overlap
