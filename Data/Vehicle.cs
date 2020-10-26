@@ -24,10 +24,18 @@ namespace CRUD_Blazor.Data
 
     public enum Manufacturer
     {
+        Ferrari,
+        Honda,
         Mazda,
         Mercedes,
-        Honda,
-        Ferrari,
         Toyota
+    }
+
+    public enum OrderBy
+    {
+        Owner = 0,
+        Manufacturer = 1,
+        ManufacturingYear = 2,
+        Weight = 3
     }
 }
