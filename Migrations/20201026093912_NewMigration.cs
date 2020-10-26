@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CRUD_Blazor.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class NewMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +12,10 @@ namespace CRUD_Blazor.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    WeightMin = table.Column<int>(nullable: false),
-                    WeightMax = table.Column<int>(nullable: false),
-                    IconURL = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    MinWeight = table.Column<int>(nullable: false),
+                    MaxWeight = table.Column<int>(nullable: false),
+                    IconURL = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,7 +30,7 @@ namespace CRUD_Blazor.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Owner = table.Column<string>(nullable: false),
                     Manufacturer = table.Column<int>(nullable: false),
-                    ManufacturingYear = table.Column<DateTime>(nullable: false),
+                    ManufacturingYear = table.Column<string>(nullable: false),
                     Weight = table.Column<decimal>(type: "decimal(18, 2)", nullable: false)
                 },
                 constraints: table =>
@@ -41,18 +40,18 @@ namespace CRUD_Blazor.Migrations
 
             migrationBuilder.InsertData(
                 table: "Category",
-                columns: new[] { "Id", "IconURL", "Name", "WeightMax", "WeightMin" },
-                values: new object[] { 1, "", "Light", 500, 0 });
+                columns: new[] { "Id", "IconURL", "MaxWeight", "MinWeight", "Name" },
+                values: new object[] { 1, "https://www.flaticon.com/svg/static/icons/svg/1085/1085961.svg", 500, 0, "Light" });
 
             migrationBuilder.InsertData(
                 table: "Category",
-                columns: new[] { "Id", "IconURL", "Name", "WeightMax", "WeightMin" },
-                values: new object[] { 2, "", "Medium", 2500, 500 });
+                columns: new[] { "Id", "IconURL", "MaxWeight", "MinWeight", "Name" },
+                values: new object[] { 2, "https://www.flaticon.com/svg/static/icons/svg/3662/3662796.svg", 2500, 500, "Medium" });
 
             migrationBuilder.InsertData(
                 table: "Category",
-                columns: new[] { "Id", "IconURL", "Name", "WeightMax", "WeightMin" },
-                values: new object[] { 3, "", "Heavy", 999999, 2500 });
+                columns: new[] { "Id", "IconURL", "MaxWeight", "MinWeight", "Name" },
+                values: new object[] { 3, "https://www.flaticon.com/svg/static/icons/svg/3662/3662736.svg", 999999, 2500, "Heavy" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

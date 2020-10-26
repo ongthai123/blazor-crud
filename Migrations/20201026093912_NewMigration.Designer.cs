@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRUD_Blazor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201026021336_UpdateVehicle")]
-    partial class UpdateVehicle
+    [Migration("20201026093912_NewMigration")]
+    partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
