@@ -16,7 +16,7 @@ namespace CRUD_Blazor.Data
         [Required]
         public Manufacturer Manufacturer { get; set; }
         [Required]
-        public DateTime ManufacturingYear { get; set; }
+        public string ManufacturingYear { get; set; }
         [Required]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Weight { get; set; }
