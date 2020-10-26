@@ -1,0 +1,57 @@
+﻿@page "/vehicle"
+
+@using CRUD_Blazor.Data
+@inject VehicleService vehicleService
+
+<h3>Index</h3>
+
+<NavLink class="nav-link" href="vehicle/create">
+    <span class="oi oi-plus" aria-hidden="true"></span> Add New
+</NavLink>
+
+@if (vehicles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Owner</th>
+                <th>Manufacturer</th>
+                <th>Year</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vehicle in vehicles)
+            {
+            <tr>
+                <td>@vehicle.Owner</td>
+                <td>@vehicle.Manufacturer</td>
+                <td>@vehicle.ManufacturingYear</td>
+                <td>@vehicle.Weight</td>
+                <td>
+                    <a class="nav-link" href="vehicle/edit/@vehicle.Id">
+                        <span class="oi oi-pencil" aria-hidden="true"></span> Edit
+                    </a>
+                    <a class="nav-link" href="vehicle/delete/@vehicle.Id">
+                        <span class="oi oi-trash" aria-hidden="true"></span> Delete
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Vehicle> vehicles;
+
+    protected override async Task OnInitializedAsync()
+    {
+        vehicles = await Task.Run(() => vehicleService.GetVehicles());
+    }
+}

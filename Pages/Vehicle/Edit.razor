@@ -1,0 +1,78 @@
+﻿@page "/vehicle/edit/{Id}"
+
+@using CRUD_Blazor.Data
+@inject VehicleService vehicleSerivce
+@inject NavigationManager navigationManager
+
+<h3>Edit Vehicle</h3>
+
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Owner" class="control-label">Owner</label>
+                <input form="Owner" class="form-control" @bind="@vehicle.Owner" />
+            </div>
+            <div class="form-group">
+                <label for="Manufacturer" class="control-label">Manufacturer</label>
+                <input form="Manufacturer" class="form-control" @bind="@vehicle.Manufacturer" />
+            </div>
+            <div class="form-group">
+                <label for="ManufacturingYear" class="control-label">ManufacturingYear</label>
+                <input form="ManufacturingYear" class="form-control" @bind="@vehicle.ManufacturingYear" />
+            </div>
+            <div class="form-group">
+                <label for="Weight" class="control-label">Weight</label>
+                <input form="Weight" class="form-control" @bind="@vehicle.Weight" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@UpdateVehicle" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (result != "")
+{
+    <div class="row">
+        <div class="alert alert-danger" role="alert">
+            @result
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    Vehicle vehicle = new Vehicle();
+
+    public string result { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        vehicle = await Task.Run(() => vehicleSerivce.GetVehicleById(Convert.ToInt32(Id)));
+    }
+
+    public void UpdateVehicle()
+    {
+        result = vehicleSerivce.Update(vehicle);
+        if (result == "")
+        {
+            navigationManager.NavigateTo("vehicle");
+        }
+    }
+
+    void Cancel()
+    {
+        navigationManager.NavigateTo("vehicle");
+    }
+}

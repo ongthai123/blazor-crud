@@ -1,0 +1,61 @@
+﻿@page "/vehicle/delete/{Id}"
+
+@using CRUD_Blazor.Data
+@inject VehicleService vehicleSerivce
+@inject NavigationManager navigationManager
+
+<h3>Delete Vehicle</h3>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <label for="Owner" class="control-label">Owner</label>
+            <input form="Owner" class="form-control" @bind="@vehicle.Owner" />
+        </div>
+        <div class="form-group">
+            <label for="Manufacturer" class="control-label">Manufacturer</label>
+            <input form="Manufacturer" class="form-control" @bind="@vehicle.Manufacturer" />
+        </div>
+        <div class="form-group">
+            <label for="ManufacturingYear" class="control-label">ManufacturingYear</label>
+            <input form="ManufacturingYear" class="form-control" @bind="@vehicle.ManufacturingYear" />
+        </div>
+        <div class="form-group">
+            <label for="Weight" class="control-label">Weight</label>
+            <input form="Weight" class="form-control" @bind="@vehicle.Weight" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" @onclick="@DeleteVehicle" value="Delete" />
+            <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    Vehicle vehicle = new Vehicle();
+
+    protected override async Task OnInitializedAsync()
+    {
+        vehicle = await Task.Run(() => vehicleSerivce.GetVehicleById(Convert.ToInt32(Id)));
+    }
+
+    public void DeleteVehicle()
+    {
+        vehicleSerivce.Delete(vehicle);
+        navigationManager.NavigateTo("vehicle");
+    }
+
+    void Cancel()
+    {
+        navigationManager.NavigateTo("vehicle");
+    }
+}
