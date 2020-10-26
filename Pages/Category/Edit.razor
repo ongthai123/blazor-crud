@@ -40,11 +40,22 @@
     </div>
 </form>
 
+@if (result != "")
+{
+    <div class="row">
+        <div class="alert alert-danger" role="alert">
+            @result
+        </div>
+    </div>
+}
+
 @code {
     [Parameter]
     public string Id { get; set; }
 
     Category category = new Category();
+
+    public string result { get; set; } = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,8 +64,11 @@
 
     public void UpdateCategory()
     {
-        categorySerivce.Update(category);
-        //navigationManager.NavigateTo("category");
+        result = categorySerivce.Update(category);
+        if (result == "")
+        {
+            navigationManager.NavigateTo("category");
+        }
     }
 
     void Cancel()

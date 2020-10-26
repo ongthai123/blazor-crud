@@ -37,17 +37,7 @@
             </div>
         </div>
     </div>
-    @if (result == "")
-    {
-
-    }
-    else if (result == "Successul")
-    {
-        <div class="alert alert-success" role="alert">
-            @result
-        </div>
-    }
-    else
+    @if (result != "")
     {
         <div class="row">
             <div class="alert alert-danger" role="alert">
@@ -65,7 +55,10 @@
     public void CreateCategory()
     {
         result = categorySerivce.Create(category);
-        //navigationManager.NavigateTo("category");
+        if(result == "")
+        {
+            navigationManager.NavigateTo("category");
+        }
     }
 
     void Cancel()

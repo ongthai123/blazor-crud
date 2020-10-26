@@ -6,63 +6,64 @@
 <h3>Category</h3>
 
 <NavLink class="nav-link" href="category/create">
-	<span class="oi oi-plus" aria-hidden="true"></span> Add New
+    <span class="oi oi-plus" aria-hidden="true"></span> Add New
 </NavLink>
 
 @if (categories == null)
 {
-	<p><em>Loading...</em></p>
+    <p><em>Loading...</em></p>
 }
 else
 {
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Weight Range</th>
-				<th>Icon</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var category in categories)
-			{
-			<tr>
-				<td>@category.Name</td>
-				@if (category.MinWeight == 0)
-				{
-					<td>Up to @category.MaxWeight</td>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight Range</th>
+                <th>Icon</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in categories)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    @if (category.MinWeight == 0)
+                    {
+                        <td>Up to @category.MaxWeight</td>
 
-				}
-				else if (category.MaxWeight == 999999)
-				{
-					<td>@category.MinWeight and higher</td>
+                    }
+                    else if (category.MaxWeight == categories.OrderByDescending(y => y.MaxWeight).FirstOrDefault().MaxWeight)
+                    {
+                        <td>@category.MinWeight and higher</td>
 
-				}
-				else
-				{
-				<td>@category.MinWeight to @category.MaxWeight</td>
-				}
-				<td> <img src="@category.IconURL" asp-append-version="true" width="30px" /></td>
-				<td>
-					<a class="nav-link" href="category/edit/@category.Id">
-						<span class="oi oi-pencil" aria-hidden="true"></span> Edit
-					</a>
-					<a class="nav-link" href="Delete/@category.Id">
-						<span class="oi oi-trash" aria-hidden="true"></span> Delete
-					</a>
-				</td>
-			</tr>
-			}
-		</tbody>
-	</table>
+                    }
+                    else
+                    {
+                        <td>@category.MinWeight to @category.MaxWeight</td>
+                    }
+                    <td> <img src="@category.IconURL" asp-append-version="true" width="30" /></td>
+                    <td>
+                        <a class="nav-link" href="category/edit/@category.Id">
+                            <span class="oi oi-pencil" aria-hidden="true"></span> Edit
+                        </a>
+                        <a class="nav-link" href="category/delete/@category.Id">
+                            <span class="oi oi-trash" aria-hidden="true"></span> Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
 @code {
-	List<Category> categories;
 
-	protected override async Task OnInitializedAsync()
-	{
-		categories = await Task.Run(() => categorySerivce.GetCategories());
-	}
+    List<Category> categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await Task.Run(() => categorySerivce.GetCategories());
+    }
 }
