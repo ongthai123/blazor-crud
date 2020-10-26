@@ -17,7 +17,7 @@ namespace CRUD_Blazor.Data
 
         public List<Category> GetCategories()
         {
-            var categories = _dbContext.Categories.ToList();
+            var categories = _dbContext.Categories.AsNoTracking().OrderBy(x => x.MinWeight).ToList();
 
             return categories;
         }
@@ -31,28 +31,48 @@ namespace CRUD_Blazor.Data
         {
             var categories = _dbContext.Categories.ToList();
 
-            var isOverlap = categories.Any(x => x.MinWeight <= category.MinWeight && category.MaxWeight <= x.MaxWeight);
+            //Check if new category's weight range is overlap
+            var isOverlap = categories.Any(x => 
+                x.MinWeight < category.MinWeight && category.MinWeight < x.MaxWeight ||
+                x.MinWeight < category.MaxWeight && category.MaxWeight < x.MaxWeight
+            );
 
             if (!isOverlap)
             {
-                _dbContext.Add(category);
+                _dbContext.Categories.Add(category);
                 _dbContext.SaveChanges();
 
-                return "Successful";
+                return "";
             }
 
-            return "New item's range is overlap or not covered the gap of current ranges.";
+            return "New item's range is overlap.";
         }
 
-        public void Update(Category category)
+        public string Update(Category category)
         {
-            _dbContext.Update(category);
+            var categories = _dbContext.Categories.ToList();
+
+            //Check if updating category's weight range is overlap
+            var isOverlap = categories.Any(x =>
+                x.MinWeight < category.MinWeight && category.MinWeight < x.MaxWeight ||
+                x.MinWeight < category.MaxWeight && category.MaxWeight < x.MaxWeight
+            );
+
+            if (!isOverlap)
+            {
+                _dbContext.Categories.Update(category);
+                _dbContext.SaveChanges();
+
+                return "";
+            }
+
+            return "Updating item's range is overlap.";
+        }
+
+        public void Delete(Category category)
+        {
+            _dbContext.Categories.Remove(category);
             _dbContext.SaveChanges();
-        }
-
-        public void Delete()
-        {
-
         }
     }
 }
